@@ -1,4 +1,4 @@
-package _test02;
+package my_test.ch02;
 
 import lombok.Getter;
 import lombok.Setter;
