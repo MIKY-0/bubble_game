@@ -94,7 +94,35 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void up() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int jumpSpeed = 2;
+                int height = 0;
 
+            while(height < 100) {
+                y -= jumpSpeed;
+                height += jumpSpeed;
+                setLocation(x , y);
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            while(height > 0) {
+                y += jumpSpeed;
+                height -= jumpSpeed;
+                setLocation(x , y);
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            }
+        }).start();
     }
 
     @Override
