@@ -61,7 +61,7 @@ public class Player extends JLabel implements Moveable {
     public void left() {
         left = true;
         setIcon(playerL);
-        new Thread(() -> {
+        new Thread( () -> {
                 while(left) {
                     x -= SPEED;
                     setLocation(x , y);
@@ -78,7 +78,7 @@ public class Player extends JLabel implements Moveable {
     public void right() {
         right = true;
         setIcon(playerR);
-        new Thread(() -> {
+        new Thread( () -> {
             while (right) {
                 x += SPEED;
                 setLocation(x, y);
