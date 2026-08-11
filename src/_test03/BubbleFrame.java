@@ -1,4 +1,4 @@
-package my_test.ch02;
+package _test03;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -12,6 +12,10 @@ public class BubbleFrame extends JFrame {
         initData();
         setInitLayout();
         addEventListener();
+
+        // 플레이어의 위치에 따라 픽셀 감지하는 백그라운드 서비스 객체 생성.
+        new Thread(new BackGroundPlayerService(player)).start();
+
     }
 
     private void initData() {
@@ -36,20 +40,17 @@ public class BubbleFrame extends JFrame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("keyCode : " + e.getKeyCode());
 
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT :
-                        // 이미 왼쪽으로 이동중이면 무시(스레드 중복생성 방지)
-                        if(!player.isLeft()) player.left();
+                        if(!player.isLeft() && !player.isLeftWallCrash()) player.left();
                         break;
 
                     case KeyEvent.VK_RIGHT :
-                        if(!player.isRight()) player.right();
+                        if(!player.isRight() && !player.isRightWallCrash()) player.right();
                         break;
 
                     case KeyEvent.VK_UP :
-                        // 점프 중이거나 낙하중이면 무시(이중 점프 방지)
                         if(!player.isUp() && !player.isDown()) player.up();
                         break;
 
@@ -63,7 +64,6 @@ public class BubbleFrame extends JFrame {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                System.out.println("KeyReleased : " + e.getKeyCode());
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT :
                         // 왼쪽으로 가고있다가 방향키를 떼면 while멈추는 동작.

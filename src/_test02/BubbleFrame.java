@@ -40,15 +40,15 @@ public class BubbleFrame extends JFrame {
 
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT :
-                        player.left();
+                        if(!player.isLeft()) player.left(); // isLeft가 초기값은 false라서 처음1번은 실행
                         break;
 
                     case KeyEvent.VK_RIGHT :
-                        player.right();
+                        if(!player.isRight()) player.right();
                         break;
 
                     case KeyEvent.VK_UP :
-                        player.up();
+                        if(!player.isUp() && !player.isDown()) player.up();
                         break;
 
                     case KeyEvent.VK_DOWN :

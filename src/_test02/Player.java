@@ -16,6 +16,7 @@ public class Player extends JLabel implements Moveable {
     // 플레이어 속도 상태
     private final int SPEED = 4;
     private final int JUMP_SPEED = 2;
+    private final int JUMP_HEIGHT = 65;
 
     // 플레이어의 움직임 상태.
     @Setter
@@ -94,11 +95,37 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void up() {
-
+        up = true;
+        new Thread(() -> {
+            for(int i = 0; i < JUMP_HEIGHT; i++) {
+                y -= JUMP_SPEED;
+                setLocation(x , y);
+                try {
+                    Thread.sleep(5); // 낙하속도보다 느리게 설정.
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                up = false;
+            }
+            down();
+        }).start();
     }
 
     @Override
     public void down() {
+        down = true;
+        new Thread(() -> {
+            for(int i = 0; i < JUMP_HEIGHT; i++) {
+                y += JUMP_SPEED;
+                setLocation(x , y);
+                try {
+                    Thread.sleep(3); // 낙하속도보다 느리게 설정.
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                down = false;
+            }
+        }).start();
 
     }
 }
