@@ -13,6 +13,7 @@ public class BackGroundPlayerService implements Runnable{
     // Image / ImageIcon : 좌표 값으로 현재 픽셀 값 추출할 수 없다.
     // 메모리에 픽셀 배열로 저장된 이미지.
     // getRGB(x , y)로 특정 좌표에 색상값을 직접 읽을 수 있음.
+    // getRGB(x , y)로 특정 좌표에 색상값을 직접 읽을 수 있음.
 
     private BufferedImage image;
     private Player player;
